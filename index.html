@@ -1,33 +1,80 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>うちのサンプラー</title>
-<style>
-*{box-sizing:border-box}body{margin:0;padding:20px;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;background:#f5f5f5;color:#222}h1{text-align:center;font-size:26px;margin:8px 0 20px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:720px;margin:0 auto}button{min-height:105px;border:0;border-radius:18px;background:#fff;box-shadow:0 3px 10px rgba(0,0,0,.12);font-size:19px;font-weight:700;padding:14px;cursor:pointer;touch-action:manipulation}button:active{transform:scale(.97)}@media(min-width:650px){.grid{grid-template-columns:repeat(3,1fr)}}.empty{max-width:720px;margin:30px auto;text-align:center;color:#777}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎵 うちのサンプラー</title>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .sampler {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    button {
+      font-size: 22px;
+      font-weight: bold;
+      padding: 25px 10px;
+      border: none;
+      border-radius: 15px;
+      background: white;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.95);
+      background: #ddd;
+    }
+  </style>
 </head>
+
 <body>
-<h1>🎵 うちのサンプラー</h1>
-<div id="grid" class="grid"></div>
-<div id="empty" class="empty" hidden>音声素材を登録すると、ここにボタンが並びます。</div>
-<script>
-const sounds = [
-  // ここに7個の素材を登録します。
-  // {name:"おはよう", file:"sounds/01_ohayou.mp3"},
-];
-const grid=document.getElementById('grid'), empty=document.getElementById('empty');
-sounds.forEach(sound=>{
-  const button=document.createElement('button');
-  button.textContent=sound.name;
-  button.addEventListener('click',()=>{
-    const audio=new Audio(sound.file);
-    audio.play().catch(e=>console.log(e));
-  });
-  grid.appendChild(button);
-});
-empty.hidden=sounds.length>0;
-</script>
+
+  <h1>🎵 うちのサンプラー</h1>
+
+  <div class="sampler" id="sampler"></div>
+
+  <script>
+    const sounds = [
+      { name: "く", file: "sounds/く.wav" },
+      { name: "つ", file: "sounds/つ.wav" },
+      { name: "ば", file: "sounds/ば.wav" },
+      { name: "れ", file: "sounds/れ.wav" },
+      { name: "あれ", file: "sounds/あれ.wav" },
+      { name: "え、好きペ", file: "sounds/え、好きペ.wav" },
+      { name: "待って・・・。", file: "sounds/待って・・・。.wav" }
+    ];
+
+    const sampler = document.getElementById("sampler");
+
+    sounds.forEach(sound => {
+      const button = document.createElement("button");
+      button.textContent = sound.name;
+
+      button.addEventListener("click", () => {
+        const audio = new Audio(sound.file);
+        audio.play();
+      });
+
+      sampler.appendChild(button);
+    });
+  </script>
+
 </body>
 </html>
