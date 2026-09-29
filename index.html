@@ -52,7 +52,7 @@
 
   <script>
     const sounds = [
-  　　{ name: "あれ", file: "sounds/あれ.wav" },
+  　　{ name: "あれ", file: "sounds/あれ.wav", image: "あれ_icon.webp" },
   　　{ name: "え、好きペ", file: "sounds/え、好きペ.wav" },
   　　{ name: "ば", file: "sounds/ば.wav" },
   　　{ name: "く", file: "sounds/く.wav" },
@@ -64,8 +64,20 @@
     const sampler = document.getElementById("sampler");
 
     sounds.forEach(sound => {
-      const button = document.createElement("button");
-      button.textContent = sound.name;
+    const button = document.createElement("button");
+
+　　if (sound.image) {
+ 　 const img = document.createElement("img");
+ 　 img.src = sound.image;
+ 　 img.style.width = "80px";
+　  img.style.height = "80px";
+ 　 img.style.objectFit = "contain";
+ 　 button.appendChild(img);
+　}
+
+　const text = document.createElement("div");
+　text.textContent = sound.name;
+　button.appendChild(text);
 
       button.addEventListener("click", () => {
         const audio = new Audio(sound.file);
