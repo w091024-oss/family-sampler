@@ -26,16 +26,43 @@
       margin: 0 auto;
     }
 
-    button {
-      font-size: 22px;
-      font-weight: bold;
-      padding: 25px 10px;
-      border: none;
-      border-radius: 15px;
-      background: white;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-      cursor: pointer;
-    }
+   button {
+  　position: relative;
+  　width: 100%;
+  　aspect-ratio: 1 / 1;
+  　padding: 0;
+  　border: none;
+ 　 border-radius: 15px;
+  　overflow: hidden;
+  　background: #222;
+  　box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  　cursor: pointer;
+  　color: white;
+  　font-size: 24px;
+  　font-weight: bold;
+　　}
+
+　button img {
+  　width: 100% !important;
+  　height: 100% !important;
+  object-fit: cover !important;
+  display: block;
+}
+
+button div {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 4px black;
+  z-index: 2;
+}
+
+button:active {
+  transform: scale(0.95);
+}
 
     button:active {
       transform: scale(0.95);
