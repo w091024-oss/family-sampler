@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -18,6 +19,31 @@
       margin-bottom: 20px;
     }
 
+    .bank-selector {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      max-width: 600px;
+      margin: 0 auto 18px;
+    }
+
+    .bank-button {
+      aspect-ratio: auto;
+      width: auto;
+      flex: 1;
+      padding: 12px 4px;
+      border-radius: 10px;
+      background: #ddd;
+      color: #333;
+      font-size: 14px;
+      box-shadow: none;
+    }
+
+    .bank-button.active {
+      background: #333;
+      color: white;
+    }
+
     .sampler {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -26,7 +52,7 @@
       margin: 0 auto;
     }
 
-    button {
+    .sampler button {
       position: relative;
       width: 100%;
       aspect-ratio: 1 / 1;
@@ -42,32 +68,32 @@
       font-weight: bold;
     }
 
-    button img {
+    .sampler button img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    button div {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  text-align: center;
-  color: white;
-  font-family: "Arial Rounded MT Bold", "Helvetica Neue", sans-serif;
-  font-size: 30px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  text-shadow:
-    2px 2px 4px rgba(0, 0, 0, 0.8),
-    0 0 8px rgba(0, 0, 0, 0.5);
-  z-index: 2;
-}
+    .sampler button div {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-family: "Arial Rounded MT Bold", "Helvetica Neue", sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 8px rgba(0, 0, 0, 0.5);
+      z-index: 2;
+    }
 
-    button:active {
+    .sampler button:active {
       transform: scale(0.95);
     }
   </style>
@@ -77,49 +103,88 @@
 
   <h1>🎵 うちのサンプラー</h1>
 
+  <div class="bank-selector" id="bankSelector"></div>
   <div class="sampler" id="sampler"></div>
 
   <script>
-    const sounds = [
-      { name: "あれ", file: "sounds/あれ.wav", image: "icons/are_icon.webp" },
-      { name: "え、好きペ", file: "sounds/え、好きペ.wav", image: "icons/sukipe.webp" },
-      { name: "ば", file: "sounds/ば.wav", image: "icons/ba.webp" },
-      { name: "く", file: "sounds/く.wav" , image: "icons/ku.webp" },
-      { name: "れ", file: "sounds/れ.wav" , image: "icons/re.webp" },
-      { name: "つ", file: "sounds/つ.wav" , image: "icons/tsu.webp" },
-      { name: "アディオス", file: "sounds/アディオス.wav", image:"icons/adios.webp" },
-      { name: "待って・・・。", file: "sounds/待って・・・。.wav", image:"icons/matte.webp" },
-      { name: "山中なす", file: "sounds/yamanakanasu.wav", image:"icons/yamanakanasu.webp" },
-      { name: "炊飯器", file: "sounds/炊飯器.wav" , image: "icons/suihanki.webp" },
-      { name: "皮膚トラブル", file: "sounds/hifutoraburu.wav", image: "icons/hifutoraburu.webp" },
-      { name: "ガマンしないで", file: "sounds/gamanshinaide.wav", image: "icons/gamanshinaide.webp" },
-      { name: "いっしょになおそうね", file: "sounds/いっしょになおそうね.wav" , image: "icons/Isshoninaosoune.webp" },
-      { name: "", file: "sounds/runrunyamanaka.wav" , image: "icons/runrunyamanaka.webp" },
-      { name: "", file: "sounds/osharehajikoman.wav" , image: "icons/osharehajikoman.webp" },
-    ];
+    const banks = {
+      "BANK 1": [
+        { name: "あれ", file: "sounds/あれ.wav", image: "icons/are_icon.webp" },
+        { name: "え、好きペ", file: "sounds/え、好きペ.wav", image: "icons/sukipe.webp" },
+        { name: "ば", file: "sounds/ば.wav", image: "icons/ba.webp" },
+        { name: "く", file: "sounds/く.wav", image: "icons/ku.webp" },
+        { name: "れ", file: "sounds/れ.wav", image: "icons/re.webp" },
+        { name: "つ", file: "sounds/つ.wav", image: "icons/tsu.webp" },
+        { name: "アディオス", file: "sounds/アディオス.wav", image: "icons/adios.webp" },
+        { name: "待って・・・。", file: "sounds/待って・・・。.wav", image: "icons/matte.webp" },
+        { name: "山中なす", file: "sounds/yamanakanasu.wav", image: "icons/yamanakanasu.webp" },
+        { name: "炊飯器", file: "sounds/炊飯器.wav", image: "icons/suihanki.webp" },
+        { name: "皮膚トラブル", file: "sounds/hifutoraburu.wav", image: "icons/hifutoraburu.webp" },
+        { name: "ガマンしないで", file: "sounds/gamanshinaide.wav", image: "icons/gamanshinaide.webp" },
+        { name: "いっしょになおそうね", file: "sounds/いっしょになおそうね.wav", image: "icons/Isshoninaosoune.webp" },
+        { name: "", file: "sounds/runrunyamanaka.wav", image: "icons/runrunyamanaka.webp" },
+        { name: "", file: "sounds/osharehajikoman.wav", image: "icons/osharehajikoman.webp" }
+      ],
+
+      "BANK 2": [],
+      "BANK 3": [],
+      "BANK 4": []
+    };
 
     const sampler = document.getElementById("sampler");
+    const bankSelector = document.getElementById("bankSelector");
 
-    sounds.forEach(sound => {
-      const button = document.createElement("button");
+    function showBank(bankName) {
+      sampler.innerHTML = "";
+      bankSelector.innerHTML = "";
 
-      if (sound.image) {
-        const img = document.createElement("img");
-        img.src = sound.image;
-        button.appendChild(img);
-      }
+      // バンク切替ボタン
+      Object.keys(banks).forEach(name => {
+        const bankButton = document.createElement("button");
+        bankButton.className = "bank-button";
+        bankButton.textContent = name;
 
-      const text = document.createElement("div");
-      text.textContent = sound.name;
-      button.appendChild(text);
+        if (name === bankName) {
+          bankButton.classList.add("active");
+        }
 
-      button.addEventListener("click", () => {
-        const audio = new Audio(sound.file);
-        audio.play();
+        bankButton.addEventListener("click", () => {
+          showBank(name);
+        });
+
+        bankSelector.appendChild(bankButton);
       });
 
-      sampler.appendChild(button);
-    });
+      // パッドを6個表示
+      for (let i = 0; i < 6; i++) {
+        const sound = banks[bankName][i];
+        const button = document.createElement("button");
+
+        if (sound) {
+          if (sound.image) {
+            const img = document.createElement("img");
+            img.src = sound.image;
+            button.appendChild(img);
+          }
+
+          if (sound.name) {
+            const text = document.createElement("div");
+            text.textContent = sound.name;
+            button.appendChild(text);
+          }
+
+          button.addEventListener("click", () => {
+            const audio = new Audio(sound.file);
+            audio.play();
+          });
+        }
+
+        sampler.appendChild(button);
+      }
+    }
+
+    // 最初はBANK 1を表示
+    showBank("BANK 1");
   </script>
 
 </body>
